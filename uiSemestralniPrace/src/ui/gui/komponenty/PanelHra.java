@@ -9,7 +9,7 @@
  * Created on 15.1.2011, 15:26:56
  */
 
-package ui.aplikace;
+package ui.gui.komponenty;
 
 /**
  *
@@ -52,23 +52,23 @@ public class PanelHra extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelPolicko1 = new ui.aplikace.PanelPolicko();
-        panelPolicko2 = new ui.aplikace.PanelPolicko();
-        panelPolicko3 = new ui.aplikace.PanelPolicko();
-        panelPolicko4 = new ui.aplikace.PanelPolicko();
-        panelPolicko5 = new ui.aplikace.PanelPolicko();
-        panelPolicko6 = new ui.aplikace.PanelPolicko();
-        panelPolicko7 = new ui.aplikace.PanelPolicko();
-        panelPolicko8 = new ui.aplikace.PanelPolicko();
-        panelPolicko9 = new ui.aplikace.PanelPolicko();
-        panelPolicko10 = new ui.aplikace.PanelPolicko();
-        panelPolicko11 = new ui.aplikace.PanelPolicko();
-        panelPolicko12 = new ui.aplikace.PanelPolicko();
-        panelPolicko13 = new ui.aplikace.PanelPolicko();
-        panelPolicko14 = new ui.aplikace.PanelPolicko();
-        panelPolicko15 = new ui.aplikace.PanelPolicko();
-        panelPolicko16 = new ui.aplikace.PanelPolicko();
-        panelPolicko17 = new ui.aplikace.PanelPolicko();
+        panelPolicko1 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko2 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko3 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko4 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko5 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko6 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko7 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko8 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko9 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko10 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko11 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko12 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko13 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko14 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko15 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko16 = new ui.gui.komponenty.PanelPolicko();
+        panelPolicko17 = new ui.gui.komponenty.PanelPolicko();
 
         setMaximumSize(new java.awt.Dimension(268, 272));
         setMinimumSize(new java.awt.Dimension(268, 272));
@@ -153,23 +153,23 @@ public class PanelHra extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private ui.aplikace.PanelPolicko panelPolicko1;
-    private ui.aplikace.PanelPolicko panelPolicko10;
-    private ui.aplikace.PanelPolicko panelPolicko11;
-    private ui.aplikace.PanelPolicko panelPolicko12;
-    private ui.aplikace.PanelPolicko panelPolicko13;
-    private ui.aplikace.PanelPolicko panelPolicko14;
-    private ui.aplikace.PanelPolicko panelPolicko15;
-    private ui.aplikace.PanelPolicko panelPolicko16;
-    private ui.aplikace.PanelPolicko panelPolicko17;
-    private ui.aplikace.PanelPolicko panelPolicko2;
-    private ui.aplikace.PanelPolicko panelPolicko3;
-    private ui.aplikace.PanelPolicko panelPolicko4;
-    private ui.aplikace.PanelPolicko panelPolicko5;
-    private ui.aplikace.PanelPolicko panelPolicko6;
-    private ui.aplikace.PanelPolicko panelPolicko7;
-    private ui.aplikace.PanelPolicko panelPolicko8;
-    private ui.aplikace.PanelPolicko panelPolicko9;
+    private ui.gui.komponenty.PanelPolicko panelPolicko1;
+    private ui.gui.komponenty.PanelPolicko panelPolicko10;
+    private ui.gui.komponenty.PanelPolicko panelPolicko11;
+    private ui.gui.komponenty.PanelPolicko panelPolicko12;
+    private ui.gui.komponenty.PanelPolicko panelPolicko13;
+    private ui.gui.komponenty.PanelPolicko panelPolicko14;
+    private ui.gui.komponenty.PanelPolicko panelPolicko15;
+    private ui.gui.komponenty.PanelPolicko panelPolicko16;
+    private ui.gui.komponenty.PanelPolicko panelPolicko17;
+    private ui.gui.komponenty.PanelPolicko panelPolicko2;
+    private ui.gui.komponenty.PanelPolicko panelPolicko3;
+    private ui.gui.komponenty.PanelPolicko panelPolicko4;
+    private ui.gui.komponenty.PanelPolicko panelPolicko5;
+    private ui.gui.komponenty.PanelPolicko panelPolicko6;
+    private ui.gui.komponenty.PanelPolicko panelPolicko7;
+    private ui.gui.komponenty.PanelPolicko panelPolicko8;
+    private ui.gui.komponenty.PanelPolicko panelPolicko9;
     // End of variables declaration//GEN-END:variables
 
 }

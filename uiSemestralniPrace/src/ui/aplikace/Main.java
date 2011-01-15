@@ -35,7 +35,7 @@ public class Main extends javax.swing.JFrame {
 
         jButtonVypocitej = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        panelHra1 = new ui.aplikace.PanelHra();
+        panelHra1 = new ui.gui.komponenty.PanelHra();
         jPanel3 = new javax.swing.JPanel();
         jButtonDalsiKrok = new javax.swing.JButton();
         jButtonPredchoziKrok = new javax.swing.JButton();
@@ -44,7 +44,7 @@ public class Main extends javax.swing.JFrame {
         jTextFieldAktKrok = new javax.swing.JTextField();
         jTextFieldCelkemKroku = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        panelHra = new ui.aplikace.PanelHra();
+        panelHra = new ui.gui.komponenty.PanelHra();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rota majora Ticháčka");
@@ -192,8 +192,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextFieldAktKrok;
     private javax.swing.JTextField jTextFieldCelkemKroku;
-    private ui.aplikace.PanelHra panelHra;
-    private ui.aplikace.PanelHra panelHra1;
+    private ui.gui.komponenty.PanelHra panelHra;
+    private ui.gui.komponenty.PanelHra panelHra1;
     // End of variables declaration//GEN-END:variables
 
 }

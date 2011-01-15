@@ -77,7 +77,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="ui.aplikace.PanelHra" name="panelHra1">
+        <Component class="ui.gui.komponenty.PanelHra" name="panelHra1">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -212,7 +212,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="ui.aplikace.PanelHra" name="panelHra">
+        <Component class="ui.gui.komponenty.PanelHra" name="panelHra">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
