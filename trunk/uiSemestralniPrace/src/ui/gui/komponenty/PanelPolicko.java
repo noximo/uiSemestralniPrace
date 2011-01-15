@@ -8,7 +8,7 @@
  *
  * Created on 15.1.2011, 15:31:44
  */
-package ui.aplikace;
+package ui.gui.komponenty;
 
 import javax.swing.Icon;
 import ui.gui.icons.IconLoader;

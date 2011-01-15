@@ -116,39 +116,39 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko1">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko1">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko2">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko2">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko3">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko3">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko4">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko4">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko5">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko5">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko6">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko6">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko7">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko7">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko8">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko8">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko9">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko9">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko10">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko10">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko11">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko11">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko12">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko12">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko13">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko13">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko14">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko14">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko15">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko15">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko16">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko16">
     </Component>
-    <Component class="ui.aplikace.PanelPolicko" name="panelPolicko17">
+    <Component class="ui.gui.komponenty.PanelPolicko" name="panelPolicko17">
     </Component>
   </SubComponents>
 </Form>
