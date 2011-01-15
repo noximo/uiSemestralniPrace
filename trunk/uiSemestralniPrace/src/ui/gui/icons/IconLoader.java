@@ -14,8 +14,6 @@ import javax.swing.ImageIcon;
  */
 public class IconLoader {
     
-    java.net.URL imageURL = IconLoader.class.getResource("images/myImage.gif");
-
     public static Icon loadOrangeRing(){
         return new ImageIcon(IconLoader.class.getResource("orange.png"));
     }
