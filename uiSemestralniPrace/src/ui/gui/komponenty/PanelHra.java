@@ -11,6 +11,11 @@
 
 package ui.gui.komponenty;
 
+import java.util.ArrayList;
+import javax.swing.Icon;
+import ui.alg.Hra;
+import ui.alg.Policko;
+
 /**
  *
  * @author notebook
@@ -21,7 +26,30 @@ public class PanelHra extends javax.swing.JPanel {
     public PanelHra() {
         initComponents();
     }
-    
+
+
+
+    public void nastavPanelZeHry(Hra hra){
+        panelPolicko1.nastavHodnotuZPolicka(hra.getPolicka().get(0));
+        panelPolicko2.nastavHodnotuZPolicka(hra.getPolicka().get(1));
+        panelPolicko3.nastavHodnotuZPolicka(hra.getPolicka().get(2));
+        panelPolicko4.nastavHodnotuZPolicka(hra.getPolicka().get(3));
+        panelPolicko5.nastavHodnotuZPolicka(hra.getPolicka().get(4));
+        panelPolicko6.nastavHodnotuZPolicka(hra.getPolicka().get(5));
+        panelPolicko7.nastavHodnotuZPolicka(hra.getPolicka().get(6));
+        panelPolicko8.nastavHodnotuZPolicka(hra.getPolicka().get(7));
+        panelPolicko9.nastavHodnotuZPolicka(hra.getPolicka().get(8));
+        panelPolicko10.nastavHodnotuZPolicka(hra.getPolicka().get(9));
+        panelPolicko11.nastavHodnotuZPolicka(hra.getPolicka().get(10));
+        panelPolicko12.nastavHodnotuZPolicka(hra.getPolicka().get(11));
+        panelPolicko13.nastavHodnotuZPolicka(hra.getPolicka().get(12));
+        panelPolicko14.nastavHodnotuZPolicka(hra.getPolicka().get(13));
+        panelPolicko15.nastavHodnotuZPolicka(hra.getPolicka().get(14));
+        panelPolicko16.nastavHodnotuZPolicka(hra.getPolicka().get(15));
+        panelPolicko17.nastavHodnotuZPolicka(hra.getPolicka().get(16));
+    }
+
+
     public void setDefault(){
         panelPolicko1.zobrazCernou();
         panelPolicko2.zobrazZadnou();
@@ -39,10 +67,29 @@ public class PanelHra extends javax.swing.JPanel {
         panelPolicko14.zobrazZadnou();
         panelPolicko15.zobrazCernou();
         panelPolicko16.zobrazZadnou();
-        panelPolicko17.zobrazCernou();
-        
+        panelPolicko17.zobrazCernou();       
     }
 
+    public void setFinal(){
+        panelPolicko1.zobrazBilou();
+        panelPolicko2.zobrazZadnou();
+        panelPolicko3.zobrazBilou();
+        panelPolicko4.zobrazZadnou();
+        panelPolicko5.zobrazBilou();
+        panelPolicko6.zobrazCernou();
+        panelPolicko7.zobrazCernou();
+        panelPolicko8.zobrazCernou();
+        panelPolicko9.zobrazZlatou();
+        panelPolicko10.zobrazCernou();
+        panelPolicko11.zobrazCernou();
+        panelPolicko12.zobrazCernou();
+        panelPolicko13.zobrazBilou();
+        panelPolicko14.zobrazZadnou();
+        panelPolicko15.zobrazBilou();
+        panelPolicko16.zobrazZadnou();
+        panelPolicko17.zobrazBilou();
+    }
+   
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

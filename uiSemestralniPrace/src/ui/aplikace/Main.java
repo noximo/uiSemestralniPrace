@@ -11,17 +11,35 @@
 
 package ui.aplikace;
 
+import ui.alg.Algortimus;
+import ui.alg.Hra;
+import ui.alg.Stav;
+import ui.alg.StavHry;
+import ui.alg.VyslednyStav;
+
 /**
  *
  * @author notebook
  */
 public class Main extends javax.swing.JFrame {
 
+    private Algortimus alg;
+    private Hra hraZacatek;
+    private  Hra hraKonec;
     /** Creates new form main */
+
     public Main() {
         initComponents();
-        panelHra.setDefault();
-        setVisibleBody(false);
+         //panelHra.setDefault();
+        //panelHra1.setFinal();
+        hraZacatek = new Hra();
+        hraKonec = new Hra();
+        hraZacatek.setDefault();
+        hraKonec.setFinal();
+        //panelHra = new PanelHra(hraZacatek);
+        //panelHra1 = new PanelHra(hraKonec);
+        panelHra.nastavPanelZeHry(hraZacatek);
+        panelHraKroky.nastavPanelZeHry(hraKonec);
     }
     
     private void setVisibleBody(boolean visible){
@@ -191,7 +209,10 @@ public class Main extends javax.swing.JFrame {
 
     private void jButtonVypocitejActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVypocitejActionPerformed
         // TODO add your handling code here:
-        
+        alg = new Algortimus(new StavHry(hraZacatek, null, 0), new StavHry(hraKonec, null, 0));
+        VyslednyStav<Stav> vyslednyStav = alg.spust();
+        String cisloText = Integer.toString(vyslednyStav.getPocetKrokuCelkem());
+        jTextFieldCelkemKroku.setText(cisloText);
         setVisibleBody(true);
     }//GEN-LAST:event_jButtonVypocitejActionPerformed
 
