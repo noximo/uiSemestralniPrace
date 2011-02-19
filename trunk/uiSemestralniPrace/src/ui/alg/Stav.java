@@ -13,6 +13,7 @@ import java.util.List;
 public interface Stav<V> {
 
     public abstract List<Stav<V>> getNasledujiStavy();
+    
 
     public abstract int porovnejStavy(Stav<V> druhy);
 
