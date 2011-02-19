@@ -13,6 +13,7 @@ public class Algortimus {
 
     private Comparator<Stav> c;
     private Stav pocatecni;
+    
     private Stav koncovy;
     private ArrayList<Stav> otevreneStavy;
     private ArrayList<Stav> uzavreneStavy;
