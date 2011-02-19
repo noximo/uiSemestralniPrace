@@ -21,6 +21,13 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         panelHra.setDefault();
+        setVisibleBody(false);
+    }
+    
+    private void setVisibleBody(boolean visible){
+        panelHraKroky.setVisible(visible);
+        jPanelOvladani.setVisible(visible);
+        jLabelNebyloVypocitano.setVisible(!visible);
     }
 
     /** This method is called from within the constructor to
@@ -35,14 +42,15 @@ public class Main extends javax.swing.JFrame {
 
         jButtonVypocitej = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        panelHra1 = new ui.gui.komponenty.PanelHra();
-        jPanel3 = new javax.swing.JPanel();
+        panelHraKroky = new ui.gui.komponenty.PanelHra();
+        jPanelOvladani = new javax.swing.JPanel();
         jButtonDalsiKrok = new javax.swing.JButton();
         jButtonPredchoziKrok = new javax.swing.JButton();
         jLabelAktKrok = new javax.swing.JLabel();
         jLabelCelkemKroku = new javax.swing.JLabel();
         jTextFieldAktKrok = new javax.swing.JTextField();
         jTextFieldCelkemKroku = new javax.swing.JTextField();
+        jLabelNebyloVypocitano = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         panelHra = new ui.gui.komponenty.PanelHra();
 
@@ -52,6 +60,11 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jButtonVypocitej.setText("Vypočítej");
+        jButtonVypocitej.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVypocitejActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -63,9 +76,7 @@ public class Main extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Vypočítaná posloupnost kroků"));
         jPanel1.setPreferredSize(new java.awt.Dimension(349, 430));
 
-        panelHra1.setBorder(null);
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Ovládání"));
+        jPanelOvladani.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Ovládání"));
 
         jButtonDalsiKrok.setText("Další krok");
 
@@ -81,55 +92,65 @@ public class Main extends javax.swing.JFrame {
         jTextFieldCelkemKroku.setEditable(false);
         jTextFieldCelkemKroku.setText("0");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelOvladaniLayout = new javax.swing.GroupLayout(jPanelOvladani);
+        jPanelOvladani.setLayout(jPanelOvladaniLayout);
+        jPanelOvladaniLayout.setHorizontalGroup(
+            jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelOvladaniLayout.createSequentialGroup()
+                .addGroup(jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonDalsiKrok)
                     .addComponent(jLabelAktKrok)
                     .addComponent(jLabelCelkemKroku))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonPredchoziKrok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldCelkemKroku, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextFieldAktKrok, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(304, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanelOvladaniLayout.setVerticalGroup(
+            jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelOvladaniLayout.createSequentialGroup()
+                .addGroup(jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDalsiKrok)
                     .addComponent(jButtonPredchoziKrok))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAktKrok)
                     .addComponent(jTextFieldAktKrok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCelkemKroku)
                     .addComponent(jTextFieldCelkemKroku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
+
+        jLabelNebyloVypocitano.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelNebyloVypocitano.setForeground(new java.awt.Color(251, 0, 0));
+        jLabelNebyloVypocitano.setText("Řešení ještě nebylo vypočítáno!!!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(panelHra1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelNebyloVypocitano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(272, 272, 272))
+                    .addComponent(jPanelOvladani, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelHraKroky, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(panelHra1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
+                .addComponent(jLabelNebyloVypocitano)
+                .addGap(1, 1, 1)
+                .addComponent(panelHraKroky, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelOvladani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -142,8 +163,6 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(jPanel1, gridBagConstraints);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Původní stav"));
-
-        panelHra.setBorder(null);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -170,6 +189,12 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonVypocitejActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVypocitejActionPerformed
+        // TODO add your handling code here:
+        
+        setVisibleBody(true);
+    }//GEN-LAST:event_jButtonVypocitejActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -187,13 +212,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButtonVypocitej;
     private javax.swing.JLabel jLabelAktKrok;
     private javax.swing.JLabel jLabelCelkemKroku;
+    private javax.swing.JLabel jLabelNebyloVypocitano;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelOvladani;
     private javax.swing.JTextField jTextFieldAktKrok;
     private javax.swing.JTextField jTextFieldCelkemKroku;
     private ui.gui.komponenty.PanelHra panelHra;
-    private ui.gui.komponenty.PanelHra panelHra1;
+    private ui.gui.komponenty.PanelHra panelHraKroky;
     // End of variables declaration//GEN-END:variables
 
 }
