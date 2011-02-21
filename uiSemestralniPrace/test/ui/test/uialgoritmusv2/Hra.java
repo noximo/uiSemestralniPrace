@@ -139,4 +139,8 @@ public class Hra implements Stav<Integer[]> {
     private boolean isPosunDoprava(int pozice){
         return pozice != 2 && pozice != 5 && pozice != 9;
     }
+
+    public boolean isCheckPoint() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
