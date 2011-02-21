@@ -9,6 +9,7 @@ import java.util.List;
  *
  * @author notebook
  */
+
 public class Algortimus {
 
     private Comparator<Stav> c;
