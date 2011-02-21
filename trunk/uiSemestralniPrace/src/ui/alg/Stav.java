@@ -12,22 +12,23 @@ import java.util.List;
  */
 public interface Stav<V> {
 
-    public abstract List<Stav<V>> getNasledujiStavy();
-    
+    List<Stav<V>> getNasledujiStavy();    
 
-    public abstract int porovnejStavy(Stav<V> druhy);
+    int porovnejStavy(Stav<V> druhy);
 
-    public abstract int getOhodnoceni(Stav<V> konecny);
+    int getOhodnoceni(Stav<V> konecny);
 
-    public abstract V getValue();
+    V getValue();
 
-    public abstract void setValue(V value);
+    void setValue(V value);
 
-    public abstract int getUroven();
+    int getUroven();
 
-    public abstract void setUroven(int uroven);
+    void setUroven(int uroven);
 
-    public abstract void setParent(Stav<V> parent);
+    void setParent(Stav<V> parent);
 
-    public abstract Stav<V> getParent();
+    Stav<V> getParent();
+
+    boolean isCheckPoint();
 }

@@ -114,7 +114,7 @@ public class StavHry implements Stav<Hra> {
 
     public int getOhodnoceni(Stav<Hra> konecny) {
         int hodnoceni = 0;
-        hodnoceni = hodnoceni + 100*uroven;
+        //hodnoceni = hodnoceni + 100*uroven;
         for (int i = 0; i < hraciPlocha.getPolicka().size(); i++) {
             if(!konecny.getValue().getPolicka().get(i).equals(hraciPlocha.getPolicka().get(i)))
                 hodnoceni++;
@@ -154,6 +154,10 @@ public class StavHry implements Stav<Hra> {
         else if(this.hraciPlocha.equals(stav.hraciPlocha.rotuj(2))) navrat = true;
         else if(this.hraciPlocha.equals(stav.hraciPlocha.rotuj(3))) navrat = true;
         return navrat;
+    }
+
+    public boolean isCheckPoint() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

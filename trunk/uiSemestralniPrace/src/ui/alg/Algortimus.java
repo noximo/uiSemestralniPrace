@@ -49,6 +49,7 @@ public class Algortimus {
         int pocetUzavrenychStavu = 0;
 
         while (!otevreneStavy.isEmpty() && pocetUzavrenychStavu < 10000) {
+
             Collections.sort(otevreneStavy, c);
             aktualniStav = otevreneStavy.remove(0);
             if (aktualniStav.porovnejStavy(koncovy) == 0) {
@@ -62,12 +63,15 @@ public class Algortimus {
                 }
                 return new VyslednyStav<Stav>(kroky, pocetUzavrenychStavu);
             } else {
+                if(aktualniStav.isCheckPoint()){
+                    otevreneStavy.removeAll(otevreneStavy);
+                }
                 uzavreneStavy.add(aktualniStav);
                 pocetUzavrenychStavu++;
                 expandovaneStavy = aktualniStav.getNasledujiStavy();
                 for (int i = 0; i < expandovaneStavy.size(); i++) {
                     porovnavanyExpStav = expandovaneStavy.get(i);
-                    if (!porovnejSClose(porovnavanyExpStav) && !porovnejSOpen(porovnavanyExpStav)) {
+                    if(!otevreneStavy.contains(porovnavanyExpStav) && !uzavreneStavy.contains(porovnavanyExpStav)){
                         otevreneStavy.add(porovnavanyExpStav);
                     }
                 }
