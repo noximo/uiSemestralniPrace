@@ -11,7 +11,7 @@ import java.util.PriorityQueue;
  * @author notebook
  */
 
-public class Algortimus {
+public class Algortimus implements Runnable{
 
     private Comparator<Stav> c;
     private Stav pocatecni;
@@ -21,7 +21,14 @@ public class Algortimus {
     private PriorityQueue<Stav> uzavreneStavy;
 //    private ArrayList<Stav> otevreneStavy;
 //    private ArrayList<Stav> uzavreneStavy;
-
+    private VyslednyStav<Stav> koncovyStav;
+    
+    int pocetUzavrenychStavu = 0;
+    int pocetOtevrenychStavu = 0;
+    int pocetCheckPointu = 0;
+    
+    private Stav aktualniStav = null;
+    
     public Algortimus() {
 //        otevreneStavy = new ArrayList<Stav>();
 //        uzavreneStavy = new ArrayList<Stav>();        
@@ -50,11 +57,10 @@ public class Algortimus {
     }
 
     public VyslednyStav<Stav> spust() {
-        Stav aktualniStav = null;
+        
         List<Stav> expandovaneStavy = new ArrayList<Stav>();
         Stav porovnavanyExpStav = null;
-        int pocetUzavrenychStavu = 0;
-
+        
         while (!otevreneStavy.isEmpty()) {
 
 //            Collections.sort(otevreneStavy, c);
@@ -70,9 +76,10 @@ public class Algortimus {
                 }
                 return new VyslednyStav<Stav>(kroky, pocetUzavrenychStavu);
             } else {
-                if(aktualniStav.isCheckPoint()){
-                    otevreneStavy.removeAll(otevreneStavy);
-                }
+//                if(aktualniStav.isCheckPoint()){
+//                    pocetCheckPointu++;
+//                    otevreneStavy.removeAll(otevreneStavy);
+//                }
                 uzavreneStavy.add(aktualniStav);
                 pocetUzavrenychStavu++;
                 expandovaneStavy = aktualniStav.getNasledujiStavy();
@@ -80,6 +87,7 @@ public class Algortimus {
                     porovnavanyExpStav = expandovaneStavy.get(i);
                     if(!otevreneStavy.contains(porovnavanyExpStav) && !uzavreneStavy.contains(porovnavanyExpStav)){
                         otevreneStavy.add(porovnavanyExpStav);
+                        pocetOtevrenychStavu++;
                     }
                 }
             }
@@ -108,5 +116,33 @@ public class Algortimus {
 //            }
 //        }
         return false;
+    }
+
+    public void run() {
+        koncovyStav = spust();
+    }
+    
+    public int getPocetCheckPointu(){
+        return pocetCheckPointu;
+    }
+    
+    public int getPocetOtevrenych(){
+        return pocetOtevrenychStavu;
+    }
+    
+    public int getPocetUzavrenych(){
+        return pocetUzavrenychStavu;
+    }
+    
+    public Stav getAktualniStav(){
+        return aktualniStav;
+    }
+    
+    public synchronized  void zastav() throws InterruptedException{
+        Thread.currentThread().wait();
+    }
+    
+    public synchronized  void resume(){
+        Thread.currentThread().notify();
     }
 }

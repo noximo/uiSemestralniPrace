@@ -67,15 +67,21 @@ public class Policko {
     public void nastavZadnou(){
         this.barva = -1;
     }
-
-    public boolean equals(Policko policko){
-        return (policko.barva == this.barva);
-    }
-
+    
+    
     @Override
-    public boolean equals(Object obj){
-        return equals((Policko)obj);
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Policko other = (Policko) obj;
+        if (this.barva != other.barva) {
+            return false;
+        }
+        return true;
     }
-
 
 }

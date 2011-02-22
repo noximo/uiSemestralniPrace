@@ -11,6 +11,8 @@
 
 package ui.aplikace;
 
+import com.sun.xml.internal.ws.api.message.Message;
+import javax.xml.soap.MessageFactory;
 import ui.alg.Algortimus;
 import ui.alg.Hra;
 import ui.alg.Stav;
@@ -40,12 +42,14 @@ public class Main extends javax.swing.JFrame {
         //panelHra1 = new PanelHra(hraKonec);
         panelHra.nastavPanelZeHry(hraZacatek);
         panelHraKroky.nastavPanelZeHry(hraKonec);
+        setVisibleBody(false);
     }
     
     private void setVisibleBody(boolean visible){
         panelHraKroky.setVisible(visible);
         jPanelOvladani.setVisible(visible);
         jLabelNebyloVypocitano.setVisible(!visible);
+        
     }
 
     /** This method is called from within the constructor to
@@ -210,10 +214,15 @@ public class Main extends javax.swing.JFrame {
     private void jButtonVypocitejActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVypocitejActionPerformed
         // TODO add your handling code here:
         alg = new Algortimus(new StavHry(hraZacatek, null, 0), new StavHry(hraKonec, null, 0));
-        VyslednyStav<Stav> vyslednyStav = alg.spust();
-        String cisloText = Integer.toString(vyslednyStav.getPocetKrokuCelkem());
-        jTextFieldCelkemKroku.setText(cisloText);
-        setVisibleBody(true);
+        Thread thread = new Thread(alg, "Algoritmus");
+        thread.start(); 
+        AlgoritmusJFrame frame = new AlgoritmusJFrame();
+        frame.setAlg(alg);
+        frame.setVisible(true);
+//        VyslednyStav<Stav> vyslednyStav = alg.spust();
+//        String cisloText = Integer.toString(vyslednyStav.getPocetKrokuCelkem());
+//        jTextFieldCelkemKroku.setText(cisloText);
+//        setVisibleBody(true);
     }//GEN-LAST:event_jButtonVypocitejActionPerformed
 
     /**
