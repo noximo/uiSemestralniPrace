@@ -6,6 +6,7 @@
 package ui.alg;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -35,10 +36,11 @@ public class Hra {
 
     public boolean equals(Hra hra){
         /*for (int i = 0; i < components.size(); i++) {
-            if(!components.get(i).equals(hra.components.get(i)))
+            if(!this.components.get(i).equals(hra.components.get(i)))
                 return false;
         }
         return true;*/
+
         if(hra.components.equals(this.components)) return true;
         else return false;
     }

@@ -68,8 +68,14 @@ public class Policko {
         this.barva = -1;
     }
 
-
     public boolean equals(Policko policko){
         return (policko.barva == this.barva);
     }
+
+    @Override
+    public boolean equals(Object obj){
+        return equals((Policko)obj);
+    }
+
+
 }

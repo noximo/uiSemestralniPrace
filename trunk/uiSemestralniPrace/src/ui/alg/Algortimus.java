@@ -70,9 +70,9 @@ public class Algortimus {
                 }
                 return new VyslednyStav<Stav>(kroky, pocetUzavrenychStavu);
             } else {
-//                if(aktualniStav.isCheckPoint()){
-//                    otevreneStavy.removeAll(otevreneStavy);
-//                }
+                if(aktualniStav.isCheckPoint()){
+                    otevreneStavy.removeAll(otevreneStavy);
+                }
                 uzavreneStavy.add(aktualniStav);
                 pocetUzavrenychStavu++;
                 expandovaneStavy = aktualniStav.getNasledujiStavy();

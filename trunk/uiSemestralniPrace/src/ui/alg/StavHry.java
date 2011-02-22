@@ -6,6 +6,7 @@
 package ui.alg;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -17,6 +18,8 @@ public class StavHry implements Stav<Hra> {
     private Hra hraciPlocha;
     private int uroven;
 
+    private static Checkpoint checkpoint = new Checkpoint();
+
 
     public StavHry(Hra hraciPlocha, Stav<Hra> parent, int uroven){
         this.hraciPlocha = new Hra(hraciPlocha);
@@ -25,6 +28,37 @@ public class StavHry implements Stav<Hra> {
     }
 
     public List<Stav<Hra>> getNasledujiStavy() {
+        //dodelat na overeni ze se nevklada ten samy stav tam
+        StavHry novyStavHry;
+        Policko policko;
+        ArrayList<Policko> sousedniPolicka;
+        Policko sousedniPolicko;
+        List<Stav<Hra>> listStavu = new ArrayList<Stav<Hra>>();
+
+        //projdu vsechny policka
+        for (Iterator<Policko> it = hraciPlocha.getPolicka().iterator(); it.hasNext();) {
+            policko = it.next();
+
+            //najdu prazdna
+            if(policko.getBarva() == -1){
+
+                //vyberu jejich okoli
+                sousedniPolicka = hraciPlocha.getSousedniPolicka(policko);
+                for (int i = 0; i < sousedniPolicka.size(); i++) {
+                    sousedniPolicko = sousedniPolicka.get(i);
+                    //pokud nejsou prazdna tak vytvorim novy stav prohozenim
+                    if(sousedniPolicko.getBarva() != -1){
+                        novyStavHry = new StavHry(hraciPlocha, this, uroven + 1);
+                        novyStavHry.hraciPlocha.prohodHodnotyPolicek(policko.getCisloPolicka(), sousedniPolicko.getCisloPolicka());
+                        listStavu.add(novyStavHry);
+                    }
+                }
+            }
+        }
+        return listStavu;
+    }
+
+    /*public List<Stav<Hra>> getNasledujiStavy() {
         //dodelat na overeni ze se nevklada ten samy stav tam
         StavHry novyStavHry;
         Policko policko;
@@ -85,20 +119,20 @@ public class StavHry implements Stav<Hra> {
                             
                     }
                     if(novyStavHry != null) listStavu.add(novyStavHry);
-                    /*
-                     * pokud zkoumaneSousedniPolicko je prazdne
-                     * vytvorim novy stav hry prohozenim hodnot zkoumanehoPolicka a zkoumanehoSousednihoPolicka
-                     * zkoumanePolicko se stane zkoumaneSousedni
-                     * najdu mu sousedni policka prazdna a opakuju cely postup dokud ma zkoumanePolicko souseda prazndeho
-                     * + kontrola abych se nevracel
-                     * po cyklu pridani poslednihoStavuHry do listu stavu
-                     */
+                    
+//                      pokud zkoumaneSousedniPolicko je prazdne
+//                      vytvorim novy stav hry prohozenim hodnot zkoumanehoPolicka a zkoumanehoSousednihoPolicka
+//                      zkoumanePolicko se stane zkoumaneSousedni
+//                      najdu mu sousedni policka prazdna a opakuju cely postup dokud ma zkoumanePolicko souseda prazndeho
+//                      + kontrola abych se nevracel
+//                      po cyklu pridani poslednihoStavuHry do listu stavu
+                     
 
                 }
             }
         }
         return listStavu;
-    }
+    }*/
 
     public int porovnejStavy(Stav<Hra> druhy) {
         //if(this.equals(druhy)) return 0;
@@ -157,7 +191,9 @@ public class StavHry implements Stav<Hra> {
     }
 
     public boolean isCheckPoint() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(checkpoint.vratCheckpoint(0).equals(hraciPlocha))
+            return true;
+        else return false;
     }
 
 }
