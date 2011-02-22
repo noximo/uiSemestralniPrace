@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  *
@@ -16,12 +17,15 @@ public class Algortimus {
     private Stav pocatecni;
     
     private Stav koncovy;
-    private ArrayList<Stav> otevreneStavy;
-    private ArrayList<Stav> uzavreneStavy;
+    private PriorityQueue<Stav> otevreneStavy;
+    private PriorityQueue<Stav> uzavreneStavy;
+//    private ArrayList<Stav> otevreneStavy;
+//    private ArrayList<Stav> uzavreneStavy;
 
     public Algortimus() {
-        otevreneStavy = new ArrayList<Stav>();
-        uzavreneStavy = new ArrayList<Stav>();
+//        otevreneStavy = new ArrayList<Stav>();
+//        uzavreneStavy = new ArrayList<Stav>();        
+
         c = new Comparator<Stav>() {
 
             public int compare(Stav o1, Stav o2) {
@@ -34,6 +38,8 @@ public class Algortimus {
                 }
             }
         };
+        otevreneStavy = new PriorityQueue<Stav>(500, c);
+        uzavreneStavy = new PriorityQueue<Stav>(1000, c);
     }
 
     public Algortimus(Stav pocatecni, Stav koncovy) {
@@ -49,10 +55,10 @@ public class Algortimus {
         Stav porovnavanyExpStav = null;
         int pocetUzavrenychStavu = 0;
 
-        while (!otevreneStavy.isEmpty() && pocetUzavrenychStavu < 10000) {
+        while (!otevreneStavy.isEmpty()) {
 
-            Collections.sort(otevreneStavy, c);
-            aktualniStav = otevreneStavy.remove(0);
+//            Collections.sort(otevreneStavy, c);
+            aktualniStav = otevreneStavy.remove();
             if (aktualniStav.porovnejStavy(koncovy) == 0) {
                 List<Stav> kroky = new ArrayList<Stav>();
                 Stav aktualni = aktualniStav;
@@ -64,9 +70,9 @@ public class Algortimus {
                 }
                 return new VyslednyStav<Stav>(kroky, pocetUzavrenychStavu);
             } else {
-                if(aktualniStav.isCheckPoint()){
-                    otevreneStavy.removeAll(otevreneStavy);
-                }
+//                if(aktualniStav.isCheckPoint()){
+//                    otevreneStavy.removeAll(otevreneStavy);
+//                }
                 uzavreneStavy.add(aktualniStav);
                 pocetUzavrenychStavu++;
                 expandovaneStavy = aktualniStav.getNasledujiStavy();
@@ -83,24 +89,24 @@ public class Algortimus {
     }
 
     private boolean porovnejSClose(Stav porovnavanyExpStav) {
-        Stav porovnavanyUzavrenyStav;
-        for (int j = 0; j < uzavreneStavy.size(); j++) {
-            porovnavanyUzavrenyStav = uzavreneStavy.get(j);
-            if (porovnavanyExpStav.porovnejStavy(porovnavanyUzavrenyStav) == 0) {
-                return true;
-            }
-        }
+//        Stav porovnavanyUzavrenyStav;
+//        for (int j = 0; j < uzavreneStavy.size(); j++) {
+//            porovnavanyUzavrenyStav = uzavreneStavy.get(j);
+//            if (porovnavanyExpStav.porovnejStavy(porovnavanyUzavrenyStav) == 0) {
+//                return true;
+//            }
+//        }
         return false;
     }
 
     private boolean porovnejSOpen(Stav porovnavanyExpStav) {
-        Stav porovnavanyUzavrenyStav;
-        for (int j = 0; j < otevreneStavy.size(); j++) {
-            porovnavanyUzavrenyStav = otevreneStavy.get(j);
-            if (porovnavanyExpStav.porovnejStavy(porovnavanyUzavrenyStav) == 0) {
-                return true;
-            }
-        }
+//        Stav porovnavanyUzavrenyStav;
+//        for (int j = 0; j < otevreneStavy.size(); j++) {
+//            porovnavanyUzavrenyStav = otevreneStavy.get(j);
+//            if (porovnavanyExpStav.porovnejStavy(porovnavanyUzavrenyStav) == 0) {
+//                return true;
+//            }
+//        }
         return false;
     }
 }
