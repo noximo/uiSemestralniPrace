@@ -61,24 +61,27 @@ public class Algortimus implements Runnable{
         otevreneStavy.add(pocatecni);
     }
 
-    public VyslednyStav<Stav> spust() {
-        
-        List<Stav> expandovaneStavy = new ArrayList<Stav>();
-        Stav porovnavanyExpStav = null;
-        
-        while (!otevreneStavy.isEmpty()) {
-            while (zastav) {
-                if(debug){
-                    debug = false;
-                    break;
-                }
+    private void cekej(){
+        while (this.zastav && !debug) {
+//                if(debug){
+//                    debug = false;
+//                }
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Algortimus.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-//            Collections.sort(otevreneStavy, c);
+        debug = false;
+    }
+
+    public VyslednyStav<Stav> spust() {
+        
+        List<Stav> expandovaneStavy = new ArrayList<Stav>();
+        Stav porovnavanyExpStav = null;
+        
+        while (!otevreneStavy.isEmpty()) {
+            cekej();
             aktualniStav = otevreneStavy.remove();
             if (aktualniStav.porovnejStavy(koncovy) == 0) {
                 List<Stav> kroky = new ArrayList<Stav>();
@@ -154,7 +157,7 @@ public class Algortimus implements Runnable{
         return aktualniStav;
     }
     
-    public synchronized  void zastav(boolean zastav){
+    public void zastav(boolean zastav){
         this.zastav = zastav;
     }
 
