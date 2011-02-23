@@ -156,7 +156,7 @@ public class StavHry implements Stav<Hra> {
 
     public int getOhodnoceni(Stav<Hra> konecny) {
         int hodnoceni = 0;
-        //hodnoceni = hodnoceni + 100*uroven;
+        hodnoceni = hodnoceni + 100*uroven;
         for (int i = 0; i < hraciPlocha.getPolicka().size(); i++) {
             if (!konecny.getValue().getPolicka().get(i).equals(hraciPlocha.getPolicka().get(i))) {
                 hodnoceni++;
@@ -205,9 +205,26 @@ public class StavHry implements Stav<Hra> {
     }
 
     public boolean isCheckPoint() {
-        if (checkpoint.vratCheckpoint(0).equals(hraciPlocha)) {
+        if (checkpoint.vratCheckpoint(6).equals(hraciPlocha)) {
             return true;
-        } else {
+        }
+        else if (checkpoint.vratCheckpoint(32).equals(hraciPlocha)) {
+            return true;
+        } //66
+        else if (checkpoint.vratCheckpoint(66).equals(hraciPlocha)) {
+        //else if (hraciPlocha.equals(checkpoint.vratCheckpoint(uroven))) {
+            return true;
+        }
+        else if (checkpoint.vratCheckpoint(88).equals(hraciPlocha)) {
+            return true;
+        }
+        else if (checkpoint.vratCheckpoint(100).equals(hraciPlocha)) {
+            return true;
+        }
+        else if (checkpoint.vratCheckpoint(0).equals(hraciPlocha)) {
+            return true;
+        }
+        else {
             return false;
         }
     }

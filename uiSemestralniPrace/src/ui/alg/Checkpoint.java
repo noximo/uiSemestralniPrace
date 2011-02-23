@@ -55,6 +55,11 @@ public class Checkpoint {
     public Checkpoint(){
         seznam = new ArrayList<CheckpointContainer>();
         seznam.add(vytvorPrvniCheckpoint());
+        seznam.add(vytvorDruhyCheckpoint());
+        seznam.add(vytvorTretiCheckpoint());
+        seznam.add(vytvorCtvrtyCheckpoint());
+        seznam.add(vytvorPatyCheckpoint());
+        seznam.add(vytvorFinalniCheckpoint());
     }
     
     public Hra vratCheckpoint(int uroven){
@@ -86,7 +91,120 @@ public class Checkpoint {
         policka.get(15).nastavCernou();
         policka.get(16).nastavCernou();
         
+        return new CheckpointContainer(6, hra);
+
+    }
+
+    private CheckpointContainer vytvorDruhyCheckpoint(){
+        Hra hra = new Hra();
+        ArrayList<Policko> policka = hra.getPolicka();
+
+        policka.get(0).nastavCernou();
+        policka.get(1).nastavBilou();
+        policka.get(2).nastavBilou();
+        policka.get(3).nastavBilou();
+        policka.get(4).nastavBilou();
+        policka.get(5).nastavCernou();
+        policka.get(6).nastavZadnou();
+        policka.get(7).nastavZadnou();
+        policka.get(8).nastavZadnou();
+        policka.get(9).nastavCernou();
+        policka.get(10).nastavBilou();
+        policka.get(11).nastavBilou();
+        policka.get(12).nastavZadnou();
+        policka.get(13).nastavCernou();
+        policka.get(14).nastavZlatou();
+        policka.get(15).nastavCernou();
+        policka.get(16).nastavCernou();
+
+        return new CheckpointContainer(32, hra);
+
+    }
+
+    private CheckpointContainer vytvorTretiCheckpoint(){
+        Hra hra = new Hra();
+        ArrayList<Policko> policka = hra.getPolicka();
+
+        policka.get(0).nastavBilou();
+        policka.get(1).nastavBilou();
+        policka.get(2).nastavZlatou();
+        policka.get(3).nastavBilou();
+        policka.get(4).nastavCernou();
+        policka.get(5).nastavCernou();
+        policka.get(6).nastavCernou();
+        policka.get(7).nastavCernou();
+        policka.get(8).nastavZadnou();
+        policka.get(9).nastavZadnou();
+        policka.get(10).nastavBilou();
+        policka.get(11).nastavBilou();
+        policka.get(12).nastavZadnou();
+        policka.get(13).nastavCernou();
+        policka.get(14).nastavZadnou();
+        policka.get(15).nastavCernou();
+        policka.get(16).nastavBilou();
+
+        return new CheckpointContainer(66, hra);
+
+    }
+
+    private CheckpointContainer vytvorCtvrtyCheckpoint(){
+        Hra hra = new Hra();
+        ArrayList<Policko> policka = hra.getPolicka();
+
+        policka.get(0).nastavBilou();
+        policka.get(1).nastavBilou();
+        policka.get(2).nastavZlatou();
+        policka.get(3).nastavBilou();
+        policka.get(4).nastavBilou();
+        policka.get(5).nastavCernou();
+        policka.get(6).nastavCernou();
+        policka.get(7).nastavZadnou();
+        policka.get(8).nastavZadnou();
+        policka.get(9).nastavBilou();
+        policka.get(10).nastavCernou();
+        policka.get(11).nastavCernou();
+        policka.get(12).nastavZadnou();
+        policka.get(13).nastavCernou();
+        policka.get(14).nastavZadnou();
+        policka.get(15).nastavCernou();
+        policka.get(16).nastavBilou();
+
+        return new CheckpointContainer(88, hra);
+
+    }
+
+    private CheckpointContainer vytvorPatyCheckpoint(){
+        Hra hra = new Hra();
+        ArrayList<Policko> policka = hra.getPolicka();
+
+        policka.get(0).nastavBilou();
+        policka.get(1).nastavBilou();
+        policka.get(2).nastavZlatou();
+        policka.get(3).nastavBilou();
+        policka.get(4).nastavBilou();
+        policka.get(5).nastavCernou();
+        policka.get(6).nastavCernou();
+        policka.get(7).nastavCernou();
+        policka.get(8).nastavZadnou();
+        policka.get(9).nastavCernou();
+        policka.get(10).nastavCernou();
+        policka.get(11).nastavCernou();
+        policka.get(12).nastavZadnou();
+        policka.get(13).nastavBilou();
+        policka.get(14).nastavZadnou();
+        policka.get(15).nastavZadnou();
+        policka.get(16).nastavBilou();
+
+        return new CheckpointContainer(100, hra);
+
+    }
+
+    private CheckpointContainer vytvorFinalniCheckpoint(){
+        Hra hra = new Hra();
+        hra.setFinal();
+
         return new CheckpointContainer(0, hra);
 
     }
+
 }
