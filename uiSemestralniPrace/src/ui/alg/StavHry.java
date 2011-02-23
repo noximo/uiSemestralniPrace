@@ -196,4 +196,27 @@ public class StavHry implements Stav<Hra> {
         else return false;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final StavHry other = (StavHry) obj;
+        if ((this.hraciPlocha == null || !this.hraciPlocha.equals(other.hraciPlocha))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.hraciPlocha != null ? this.hraciPlocha.hashCode() : 0);
+        return hash;
+    }
+
+
 }

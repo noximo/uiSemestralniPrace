@@ -215,7 +215,6 @@ public class Main extends javax.swing.JFrame {
         thread.start(); 
         AlgoritmusJFrame frame = new AlgoritmusJFrame();
         frame.setAlg(alg);
-        frame.setModalExclusionType(ModalExclusionType.NO_EXCLUDE);
         frame.setVisible(true);
 //        VyslednyStav<Stav> vyslednyStav = alg.spust();
 //        String cisloText = Integer.toString(vyslednyStav.getPocetKrokuCelkem());

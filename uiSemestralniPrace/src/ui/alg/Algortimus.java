@@ -85,16 +85,17 @@ public class Algortimus implements Runnable{
                 }
                 return new VyslednyStav<Stav>(kroky, pocetUzavrenychStavu);
             } else {
-//                if(aktualniStav.isCheckPoint()){
-//                    pocetCheckPointu++;
-//                    otevreneStavy.removeAll(otevreneStavy);
-//                }
+                if(aktualniStav.isCheckPoint()){
+                    pocetCheckPointu++;
+                    otevreneStavy.removeAll(otevreneStavy);
+                }
                 uzavreneStavy.add(aktualniStav);
                 pocetUzavrenychStavu++;
                 expandovaneStavy = aktualniStav.getNasledujiStavy();
                 for (int i = 0; i < expandovaneStavy.size(); i++) {
                     porovnavanyExpStav = expandovaneStavy.get(i);
-                    if(!porovnejSClose(porovnavanyExpStav) && !porovnejSOpen(porovnavanyExpStav)){
+                    if(!uzavreneStavy.contains(porovnavanyExpStav) && !otevreneStavy.contains(porovnavanyExpStav)){
+                    //if(!porovnejSClose(porovnavanyExpStav) && !porovnejSOpen(porovnavanyExpStav)){
                         otevreneStavy.add(porovnavanyExpStav);
                         pocetOtevrenychStavu++;
                     }
