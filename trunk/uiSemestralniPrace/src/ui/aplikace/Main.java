@@ -8,13 +8,18 @@
  *
  * Created on 15.1.2011, 15:23:27
  */
-
 package ui.aplikace;
 
-import java.awt.Dialog.ModalExclusionType;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Iterator;
 import ui.alg.Algortimus;
 import ui.alg.Hra;
+import ui.alg.Stav;
 import ui.alg.StavHry;
+import ui.alg.udalosti.VypocetHotovEvent;
+import ui.alg.udalosti.VypocetHotovEventListener;
+import ui.alg.VyslednyStav;
 
 /**
  *
@@ -24,12 +29,14 @@ public class Main extends javax.swing.JFrame {
 
     private Algortimus alg;
     private Hra hraZacatek;
-    private  Hra hraKonec;
-    /** Creates new form main */
+    private Hra hraKonec;
+    private VyslednyStav<Stav> koncovyStav;
+    private Iterator<Stav> iteratorStav;
 
+    /** Creates new form main */
     public Main() {
         initComponents();
-         //panelHra.setDefault();
+        //panelHra.setDefault();
         //panelHra1.setFinal();
         hraZacatek = new Hra();
         hraKonec = new Hra();
@@ -40,13 +47,14 @@ public class Main extends javax.swing.JFrame {
         panelHra.nastavPanelZeHry(hraZacatek);
         panelHraKroky.nastavPanelZeHry(hraKonec);
         setVisibleBody(false);
+        jButtonDalsiKrok.setEnabled(false);
     }
-    
-    private void setVisibleBody(boolean visible){
+
+    private void setVisibleBody(boolean visible) {
         panelHraKroky.setVisible(visible);
         jPanelOvladani.setVisible(visible);
         jLabelNebyloVypocitano.setVisible(!visible);
-        
+
     }
 
     /** This method is called from within the constructor to
@@ -64,7 +72,6 @@ public class Main extends javax.swing.JFrame {
         panelHraKroky = new ui.gui.komponenty.PanelHra();
         jPanelOvladani = new javax.swing.JPanel();
         jButtonDalsiKrok = new javax.swing.JButton();
-        jButtonPredchoziKrok = new javax.swing.JButton();
         jLabelAktKrok = new javax.swing.JLabel();
         jLabelCelkemKroku = new javax.swing.JLabel();
         jTextFieldAktKrok = new javax.swing.JTextField();
@@ -75,6 +82,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rota majora Ticháčka");
+        setMinimumSize(new java.awt.Dimension(827, 500));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -98,8 +106,11 @@ public class Main extends javax.swing.JFrame {
         jPanelOvladani.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Ovládání"));
 
         jButtonDalsiKrok.setText("Další krok");
-
-        jButtonPredchoziKrok.setText("Předchozí krok");
+        jButtonDalsiKrok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDalsiKrokActionPerformed(evt);
+            }
+        });
 
         jLabelAktKrok.setText("Aktuální krok");
 
@@ -122,17 +133,14 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabelCelkemKroku))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonPredchoziKrok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldCelkemKroku, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldAktKrok, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(304, Short.MAX_VALUE))
+                    .addComponent(jTextFieldCelkemKroku)
+                    .addComponent(jTextFieldAktKrok, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
+                .addContainerGap(336, Short.MAX_VALUE))
         );
         jPanelOvladaniLayout.setVerticalGroup(
             jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOvladaniLayout.createSequentialGroup()
-                .addGroup(jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonDalsiKrok)
-                    .addComponent(jButtonPredchoziKrok))
+                .addComponent(jButtonDalsiKrok)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelOvladaniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAktKrok)
@@ -144,7 +152,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jLabelNebyloVypocitano.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelNebyloVypocitano.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabelNebyloVypocitano.setForeground(new java.awt.Color(251, 0, 0));
         jLabelNebyloVypocitano.setText("Řešení ještě nebylo vypočítáno!!!");
 
@@ -157,8 +165,10 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelNebyloVypocitano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(272, 272, 272))
-                    .addComponent(jPanelOvladani, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelHraKroky, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelHraKroky, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanelOvladani, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -167,9 +177,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabelNebyloVypocitano)
                 .addGap(1, 1, 1)
                 .addComponent(panelHraKroky, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelOvladani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -210,32 +220,73 @@ public class Main extends javax.swing.JFrame {
 
     private void jButtonVypocitejActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVypocitejActionPerformed
         // TODO add your handling code here:
+        final AlgoritmusJFrame frame = new AlgoritmusJFrame(this, true);
         alg = new Algortimus(new StavHry(hraZacatek, null, 0), new StavHry(hraKonec, null, 0));
-        Thread thread = new Thread(alg, "Algoritmus");
-        thread.start(); 
-        AlgoritmusJFrame frame = new AlgoritmusJFrame();
+        alg.addVypocetHotovListener(new VypocetHotovEventListener() {
+
+            public void VypocetHotovEventOccurred(VypocetHotovEvent evt) {
+                koncovyStav = alg.getKoncovyStav();
+                if (koncovyStav != null) {
+                    setVisibleBody(true);
+                    panelHraKroky.nastavPanelZeHry((Hra) koncovyStav.getKonecnyStav().getValue());
+                    jTextFieldCelkemKroku.setText(Integer.toString(koncovyStav.getPocetKrokuCelkem()));
+                    jButtonDalsiKrok.setEnabled(true);
+                    iteratorStav = koncovyStav.getPosloupnostKroku().iterator();
+                }
+            }
+        });
+        final Thread thread = new Thread(alg, "Algoritmus");
+        
+        thread.start();
+        frame.setLocationRelativeTo(this);
         frame.setAlg(alg);
         frame.setVisible(true);
+
+        frame.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if(thread.isAlive()){
+                    alg.setSuspend(true);
+                }
+            }
+
+        });
+
 //        VyslednyStav<Stav> vyslednyStav = alg.spust();
 //        String cisloText = Integer.toString(vyslednyStav.getPocetKrokuCelkem());
 //        jTextFieldCelkemKroku.setText(cisloText);
 //        setVisibleBody(true);
     }//GEN-LAST:event_jButtonVypocitejActionPerformed
 
+    private void jButtonDalsiKrokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDalsiKrokActionPerformed
+        // TODO add your handling code here:
+        if (iteratorStav != null) {
+            if (iteratorStav.hasNext()) {
+                panelHraKroky.nastavPanelZeHry((Hra) iteratorStav.next().getValue());
+                int pocet = Integer.parseInt(jTextFieldAktKrok.getText());
+                jTextFieldAktKrok.setText(Integer.toString(pocet+1));
+            } else {
+                jButtonDalsiKrok.setEnabled(false);
+            }
+        } else {
+            jButtonDalsiKrok.setEnabled(false);
+        }
+    }//GEN-LAST:event_jButtonDalsiKrokActionPerformed
+
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new Main().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDalsiKrok;
-    private javax.swing.JButton jButtonPredchoziKrok;
     private javax.swing.JButton jButtonVypocitej;
     private javax.swing.JLabel jLabelAktKrok;
     private javax.swing.JLabel jLabelCelkemKroku;
@@ -248,5 +299,4 @@ public class Main extends javax.swing.JFrame {
     private ui.gui.komponenty.PanelHra panelHra;
     private ui.gui.komponenty.PanelHra panelHraKroky;
     // End of variables declaration//GEN-END:variables
-
 }

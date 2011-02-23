@@ -1,42 +1,50 @@
 package ui.alg;
 
+import java.text.SimpleDateFormat;
+import ui.alg.udalosti.VypocetHotovEvent;
+import ui.alg.udalosti.VypocetHotovEventListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ui.alg.udalosti.CheckpointEventListener;
+import ui.alg.udalosti.CheckpointEvent;
 
 /**
  *
  * @author notebook
  */
-
-public class Algortimus implements Runnable{
+public class Algortimus implements Runnable {
 
     private Comparator<Stav> c;
     private Stav pocatecni;
-    
     private Stav koncovy;
     private PriorityQueue<Stav> otevreneStavy;
     private PriorityQueue<Stav> uzavreneStavy;
 //    private ArrayList<Stav> otevreneStavy;
 //    private ArrayList<Stav> uzavreneStavy;
     private VyslednyStav<Stav> koncovyStav;
-    
     int pocetUzavrenychStavu = 0;
     int pocetOtevrenychStavu = 0;
     int pocetCheckPointu = 0;
     boolean zastav;
     boolean debug;
-
+    boolean suspend = false;
+    protected javax.swing.event.EventListenerList vypocetHotovListenerList =
+            new javax.swing.event.EventListenerList();
+    protected javax.swing.event.EventListenerList checkPointListenerList =
+            new javax.swing.event.EventListenerList();
     private Stav aktualniStav = null;
-    
+
     public Algortimus() {
 //        otevreneStavy = new ArrayList<Stav>();
 //        uzavreneStavy = new ArrayList<Stav>();        
-        zastav = false;
+        zastav = true;
         debug = false;
         c = new Comparator<Stav>() {
 
@@ -61,26 +69,29 @@ public class Algortimus implements Runnable{
         otevreneStavy.add(pocatecni);
     }
 
-    private void cekej(){
+    private void cekej() {
         while (this.zastav && !debug) {
 //                if(debug){
 //                    debug = false;
 //                }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Algortimus.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Algortimus.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
         debug = false;
     }
 
-    public VyslednyStav<Stav> spust() {
-        
+    public void spust() {
+
         List<Stav> expandovaneStavy = new ArrayList<Stav>();
         Stav porovnavanyExpStav = null;
-        
+
         while (!otevreneStavy.isEmpty()) {
+            if(suspend){
+                break;
+            }
             cekej();
             aktualniStav = otevreneStavy.remove();
             if (aktualniStav.porovnejStavy(koncovy) == 0) {
@@ -90,21 +101,24 @@ public class Algortimus implements Runnable{
                 while (aktualni.getParent() != null) {
 
                     aktualni = aktualni.getParent();
-                    kroky.add(aktualni);
+                    kroky.add(0, aktualni);
                 }
-                return new VyslednyStav<Stav>(kroky, pocetUzavrenychStavu);
+                koncovyStav = new VyslednyStav<Stav>(kroky, pocetUzavrenychStavu);
+                fireVypocetDokoncen(new VypocetHotovEvent(this, koncovyStav));
+                break;
             } else {
-                if(aktualniStav.isCheckPoint()){
+                if (aktualniStav.isCheckPoint()) {
                     pocetCheckPointu++;
                     otevreneStavy.removeAll(otevreneStavy);
+                    fireCheckPoint(new CheckpointEvent(this, dejCas(), pocetCheckPointu));
                 }
                 uzavreneStavy.add(aktualniStav);
                 pocetUzavrenychStavu++;
                 expandovaneStavy = aktualniStav.getNasledujiStavy();
                 for (int i = 0; i < expandovaneStavy.size(); i++) {
                     porovnavanyExpStav = expandovaneStavy.get(i);
-                    if(!uzavreneStavy.contains(porovnavanyExpStav) && !otevreneStavy.contains(porovnavanyExpStav)){
-                    //if(!porovnejSClose(porovnavanyExpStav) && !porovnejSOpen(porovnavanyExpStav)){
+                    if (!uzavreneStavy.contains(porovnavanyExpStav) && !otevreneStavy.contains(porovnavanyExpStav)) {
+                        //if(!porovnejSClose(porovnavanyExpStav) && !porovnejSOpen(porovnavanyExpStav)){
                         otevreneStavy.add(porovnavanyExpStav);
                         pocetOtevrenychStavu++;
                     }
@@ -112,14 +126,19 @@ public class Algortimus implements Runnable{
             }
 
         }
-        return null;
+    }
+
+    private Date dejCas(){
+        Calendar cal = Calendar.getInstance();
+        return cal.getTime();
+
     }
 
     private boolean porovnejSClose(Stav porovnavanyExpStav) {
         Iterator<Stav> iterator = uzavreneStavy.iterator();
         while (iterator.hasNext()) {
             Stav stav = iterator.next();
-            if(stav.porovnejStavy(porovnavanyExpStav) == 0){
+            if (stav.porovnejStavy(porovnavanyExpStav) == 0) {
                 return true;
             }
         }
@@ -130,7 +149,7 @@ public class Algortimus implements Runnable{
         Iterator<Stav> iterator = otevreneStavy.iterator();
         while (iterator.hasNext()) {
             Stav stav = iterator.next();
-            if(stav.porovnejStavy(porovnavanyExpStav) == 0){
+            if (stav.porovnejStavy(porovnavanyExpStav) == 0) {
                 return true;
             }
         }
@@ -138,26 +157,26 @@ public class Algortimus implements Runnable{
     }
 
     public void run() {
-        koncovyStav = spust();
+        spust();
     }
-    
-    public int getPocetCheckPointu(){
+
+    public int getPocetCheckPointu() {
         return pocetCheckPointu;
     }
-    
-    public int getPocetOtevrenych(){
+
+    public int getPocetOtevrenych() {
         return pocetOtevrenychStavu;
     }
-    
-    public int getPocetUzavrenych(){
+
+    public int getPocetUzavrenych() {
         return pocetUzavrenychStavu;
     }
-    
-    public Stav getAktualniStav(){
+
+    public Stav getAktualniStav() {
         return aktualniStav;
     }
-    
-    public void zastav(boolean zastav){
+
+    public void zastav(boolean zastav) {
         this.zastav = zastav;
     }
 
@@ -166,6 +185,51 @@ public class Algortimus implements Runnable{
         this.zastav = true;
     }
 
+    public VyslednyStav<Stav> getKoncovyStav() {
+        return koncovyStav;
+    }
 
-    
+    public void setSuspend(boolean suspend) {
+        this.suspend = suspend;
+    }
+
+    public void addVypocetHotovListener(VypocetHotovEventListener listener) {
+        vypocetHotovListenerList.add(VypocetHotovEventListener.class, listener);
+    }
+
+    public void removeVypocetHotovListener(VypocetHotovEventListener listener) {
+        vypocetHotovListenerList.remove(VypocetHotovEventListener.class, listener);
+    }
+
+    private void fireVypocetDokoncen(VypocetHotovEvent evt) {
+        Object[] listeners = vypocetHotovListenerList.getListenerList();
+        // Each listener occupies two elements - the first is the listener class
+        // and the second is the listener instance
+        for (int i=0; i<listeners.length; i+=2) {
+            if (listeners[i]==VypocetHotovEventListener.class) {
+                ((VypocetHotovEventListener)listeners[i+1]).VypocetHotovEventOccurred(evt);
+            }
+        }
+    }
+
+      public void addCheckPointListener(CheckpointEventListener listener) {
+        vypocetHotovListenerList.add(CheckpointEventListener.class, listener);
+    }
+
+    public void removeCheckPointListener(CheckpointEventListener listener) {
+        vypocetHotovListenerList.remove(CheckpointEventListener.class, listener);
+    }
+
+      private void fireCheckPoint(CheckpointEvent evt) {
+        Object[] listeners = vypocetHotovListenerList.getListenerList();
+        // Each listener occupies two elements - the first is the listener class
+        // and the second is the listener instance
+        for (int i=0; i<listeners.length; i+=2) {
+            if (listeners[i]==CheckpointEventListener.class) {
+                ((CheckpointEventListener)listeners[i+1]).CheckpointEventOccurred(evt);
+            }
+        }
+    }
+
+
 }
