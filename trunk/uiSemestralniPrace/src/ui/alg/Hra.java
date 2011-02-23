@@ -40,9 +40,21 @@ public class Hra {
                 return false;
         }
         return true;*/
-
+        if(hra == null) return false;
         if(hra.components.equals(this.components)) return true;
         else return false;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.equals((Hra)obj);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + (this.components != null ? this.components.hashCode() : 0);
+        return hash;
     }
 
     public Hra() {
