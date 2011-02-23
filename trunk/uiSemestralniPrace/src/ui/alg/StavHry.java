@@ -17,6 +17,7 @@ public class StavHry implements Stav<Hra> {
     private Stav<Hra> parent;
     private Hra hraciPlocha;
     private int uroven;
+    private static boolean povolJednoducheTahy = false;
     private static Checkpoint checkpoint = new Checkpoint();
 
     public StavHry(Hra hraciPlocha, Stav<Hra> parent, int uroven) {
@@ -25,38 +26,39 @@ public class StavHry implements Stav<Hra> {
         this.uroven = uroven;
     }
 
-//    public List<Stav<Hra>> getNasledujiStavy() {
-//        //dodelat na overeni ze se nevklada ten samy stav tam
-//        StavHry novyStavHry;
-//        Policko policko;
-//        ArrayList<Policko> sousedniPolicka;
-//        Policko sousedniPolicko;
-//        List<Stav<Hra>> listStavu = new ArrayList<Stav<Hra>>();
-//
-//        //projdu vsechny policka
-//        for (Iterator<Policko> it = hraciPlocha.getPolicka().iterator(); it.hasNext();) {
-//            policko = it.next();
-//
-//            //najdu prazdna
-//            if(policko.getBarva() == -1){
-//
-//                //vyberu jejich okoli
-//                sousedniPolicka = hraciPlocha.getSousedniPolicka(policko);
-//                for (int i = 0; i < sousedniPolicka.size(); i++) {
-//                    sousedniPolicko = sousedniPolicka.get(i);
-//                    //pokud nejsou prazdna tak vytvorim novy stav prohozenim
-//                    if(sousedniPolicko.getBarva() != -1){
-//                        novyStavHry = new StavHry(hraciPlocha, this, uroven + 1);
-//                        novyStavHry.hraciPlocha.prohodHodnotyPolicek(policko.getCisloPolicka(), sousedniPolicko.getCisloPolicka());
-//                        listStavu.add(novyStavHry);
-//                    }
-//                }
-//            }
-//        }
-//        return listStavu;
-//    }
-    public List<Stav<Hra>> getNasledujiStavy() {
+    public List<Stav<Hra>> getJednoducheNasledujiciStavy() {
         //dodelat na overeni ze se nevklada ten samy stav tam
+        StavHry novyStavHry;
+        Policko policko;
+        ArrayList<Policko> sousedniPolicka;
+        Policko sousedniPolicko;
+        List<Stav<Hra>> listStavu = new ArrayList<Stav<Hra>>();
+
+        //projdu vsechny policka
+        for (Iterator<Policko> it = hraciPlocha.getPolicka().iterator(); it.hasNext();) {
+            policko = it.next();
+
+            //najdu prazdna
+            if(policko.getBarva() == -1){
+
+                //vyberu jejich okoli
+                sousedniPolicka = hraciPlocha.getSousedniPolicka(policko);
+                for (int i = 0; i < sousedniPolicka.size(); i++) {
+                    sousedniPolicko = sousedniPolicka.get(i);
+                    //pokud nejsou prazdna tak vytvorim novy stav prohozenim
+                    if(sousedniPolicko.getBarva() != -1){
+                        novyStavHry = new StavHry(hraciPlocha, this, uroven + 1);
+                        novyStavHry.hraciPlocha.prohodHodnotyPolicek(policko.getCisloPolicka(), sousedniPolicko.getCisloPolicka());
+                        listStavu.add(novyStavHry);
+                    }
+                }
+            }
+        }
+        return listStavu;
+    }
+
+    public List<Stav<Hra>> getNasledujiStavy() {
+        if(povolJednoducheTahy == true) return getJednoducheNasledujiciStavy();
         StavHry novyStavHry;
         Policko policko;
         ArrayList<Policko> sousedniPolicka;
@@ -205,10 +207,23 @@ public class StavHry implements Stav<Hra> {
     }
 
     public boolean isCheckPoint() {
+        /*if (hraciPlocha.equals(checkpoint.vratCheckpoint(uroven))) {
+            if(uroven == 100)  povolJednoducheTahy = true;
+            return true;
+        }
+        else return false;*/
+
         if (checkpoint.vratCheckpoint(6).equals(hraciPlocha)) {
             return true;
         }
-        else if (checkpoint.vratCheckpoint(32).equals(hraciPlocha)) {
+        else if (checkpoint.vratCheckpoint(20).equals(hraciPlocha)) {
+            return true;
+        }else if (checkpoint.vratCheckpoint(32).equals(hraciPlocha)) {
+            return true;
+        }else if (checkpoint.vratCheckpoint(48).equals(hraciPlocha)) {
+            return true;
+        }
+        else if (checkpoint.vratCheckpoint(58).equals(hraciPlocha)) {
             return true;
         } //66
         else if (checkpoint.vratCheckpoint(66).equals(hraciPlocha)) {
@@ -219,15 +234,17 @@ public class StavHry implements Stav<Hra> {
             return true;
         }
         else if (checkpoint.vratCheckpoint(100).equals(hraciPlocha)) {
+            this.povolJednoducheTahy = true;
             return true;
         }
-        else if (checkpoint.vratCheckpoint(0).equals(hraciPlocha)) {
+        else if (checkpoint.vratCheckpoint(107).equals(hraciPlocha)) {
             return true;
         }
         else {
             return false;
         }
     }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
