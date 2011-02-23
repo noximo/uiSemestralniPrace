@@ -14,6 +14,7 @@ package ui.aplikace;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ui.alg.Algortimus;
+import ui.alg.Hra;
 
 /**
  *
@@ -64,6 +65,11 @@ public class AlgoritmusJFrame extends javax.swing.JFrame {
         });
 
         jButtonSpust.setText("Stust znovu");
+        jButtonSpust.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSpustActionPerformed(evt);
+            }
+        });
 
         jButtonUkazAkt.setText("Ukaž aktuální stav");
 
@@ -160,16 +166,19 @@ public class AlgoritmusJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonZastavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZastavActionPerformed
-        try {
             // TODO add your handling code here:
-            alg.zastav();
+            alg.zastav(true);
             jTextFieldCh.setText(Integer.toString(alg.getPocetCheckPointu()));
             jTextFieldOt.setText(Integer.toString(alg.getPocetOtevrenych()));
             jTextFieldUz.setText(Integer.toString(alg.getPocetUzavrenych()));
-        } catch (InterruptedException ex) {
-            Logger.getLogger(AlgoritmusJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            panelHra1.nastavPanelZeHry((Hra)alg.getAktualniStav().getValue());
+        
     }//GEN-LAST:event_jButtonZastavActionPerformed
+
+    private void jButtonSpustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpustActionPerformed
+        // TODO add your handling code here:
+        alg.zastav(false);
+    }//GEN-LAST:event_jButtonSpustActionPerformed
 
     public Algortimus getAlg() {
         return alg;
