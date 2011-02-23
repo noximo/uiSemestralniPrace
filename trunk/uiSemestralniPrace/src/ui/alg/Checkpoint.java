@@ -58,11 +58,11 @@ public class Checkpoint {
         seznam.add(vytvorCheckpoint20());
         seznam.add(vytvorCheckpoint32());
         seznam.add(vytvorCheckpoint48());
-        seznam.add(vytvorCheckpoint58());
-        seznam.add(vytvorCheckpoint66());
-        seznam.add(vytvorCheckpoint88());
-        seznam.add(vytvorCheckpoint100());
-        seznam.add(vytvorCheckpoint107());
+        seznam.add(vytvorCheckpoint60());
+        seznam.add(vytvorCheckpoint70());
+        seznam.add(vytvorCheckpoint92());
+        seznam.add(vytvorCheckpoint104());
+        seznam.add(vytvorCheckpoint109());
     }
     
     public Hra vratCheckpoint(int uroven){
@@ -176,7 +176,7 @@ public class Checkpoint {
 
     }
 
-    private CheckpointContainer vytvorCheckpoint58(){
+    private CheckpointContainer vytvorCheckpoint60(){
         Hra hra = new Hra();
         ArrayList<Policko> policka = hra.getPolicka();
 
@@ -198,11 +198,11 @@ public class Checkpoint {
         policka.get(15).nastavCernou();
         policka.get(16).nastavCernou();
 
-        return new CheckpointContainer(58, hra);
+        return new CheckpointContainer(60, hra);
 
     }
 
-    private CheckpointContainer vytvorCheckpoint66(){
+    private CheckpointContainer vytvorCheckpoint70(){
         Hra hra = new Hra();
         ArrayList<Policko> policka = hra.getPolicka();
 
@@ -224,11 +224,11 @@ public class Checkpoint {
         policka.get(15).nastavCernou();
         policka.get(16).nastavBilou();
 
-        return new CheckpointContainer(66, hra);
+        return new CheckpointContainer(70, hra);
 
     }
 
-    private CheckpointContainer vytvorCheckpoint88(){
+    private CheckpointContainer vytvorCheckpoint92(){
         Hra hra = new Hra();
         ArrayList<Policko> policka = hra.getPolicka();
 
@@ -250,11 +250,11 @@ public class Checkpoint {
         policka.get(15).nastavCernou();
         policka.get(16).nastavBilou();
 
-        return new CheckpointContainer(88, hra);
+        return new CheckpointContainer(92, hra);
 
     }
 
-    private CheckpointContainer vytvorCheckpoint100(){
+    private CheckpointContainer vytvorCheckpoint104(){
         Hra hra = new Hra();
         ArrayList<Policko> policka = hra.getPolicka();
 
@@ -276,11 +276,11 @@ public class Checkpoint {
         policka.get(15).nastavZadnou();
         policka.get(16).nastavBilou();
 
-        return new CheckpointContainer(100, hra);
+        return new CheckpointContainer(104, hra);
 
     }
 
-    private CheckpointContainer vytvorCheckpoint107(){
+    private CheckpointContainer vytvorCheckpoint109(){
         Hra hra = new Hra();
         ArrayList<Policko> policka = hra.getPolicka();
 
@@ -302,7 +302,7 @@ public class Checkpoint {
         policka.get(15).nastavZadnou();
         policka.get(16).nastavBilou();
 
-        return new CheckpointContainer(107, hra);
+        return new CheckpointContainer(109, hra);
 
     }
 
