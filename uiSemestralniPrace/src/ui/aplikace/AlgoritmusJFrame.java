@@ -11,8 +11,6 @@
 
 package ui.aplikace;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import ui.alg.Algortimus;
 import ui.alg.Hra;
 
@@ -183,9 +181,8 @@ public class AlgoritmusJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonZastavActionPerformed
 
     private void jButtonSpustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpustActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         alg.zastav(false);
-        alg.setDebug(false);
     }//GEN-LAST:event_jButtonSpustActionPerformed
 
     private void jButtonDalsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDalsiActionPerformed
