@@ -1,10 +1,12 @@
 package ui.alg;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,6 +28,7 @@ public class Algortimus implements Runnable{
     int pocetUzavrenychStavu = 0;
     int pocetOtevrenychStavu = 0;
     int pocetCheckPointu = 0;
+    boolean zastav = false;
     
     private Stav aktualniStav = null;
     
@@ -62,7 +65,13 @@ public class Algortimus implements Runnable{
         Stav porovnavanyExpStav = null;
         
         while (!otevreneStavy.isEmpty()) {
-
+            while (zastav) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Algortimus.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
 //            Collections.sort(otevreneStavy, c);
             aktualniStav = otevreneStavy.remove();
             if (aktualniStav.porovnejStavy(koncovy) == 0) {
@@ -85,7 +94,7 @@ public class Algortimus implements Runnable{
                 expandovaneStavy = aktualniStav.getNasledujiStavy();
                 for (int i = 0; i < expandovaneStavy.size(); i++) {
                     porovnavanyExpStav = expandovaneStavy.get(i);
-                    if(!otevreneStavy.contains(porovnavanyExpStav) && !uzavreneStavy.contains(porovnavanyExpStav)){
+                    if(!porovnejSClose(porovnavanyExpStav) && !porovnejSOpen(porovnavanyExpStav)){
                         otevreneStavy.add(porovnavanyExpStav);
                         pocetOtevrenychStavu++;
                     }
@@ -97,24 +106,24 @@ public class Algortimus implements Runnable{
     }
 
     private boolean porovnejSClose(Stav porovnavanyExpStav) {
-//        Stav porovnavanyUzavrenyStav;
-//        for (int j = 0; j < uzavreneStavy.size(); j++) {
-//            porovnavanyUzavrenyStav = uzavreneStavy.get(j);
-//            if (porovnavanyExpStav.porovnejStavy(porovnavanyUzavrenyStav) == 0) {
-//                return true;
-//            }
-//        }
+        Iterator<Stav> iterator = uzavreneStavy.iterator();
+        while (iterator.hasNext()) {
+            Stav stav = iterator.next();
+            if(stav.porovnejStavy(porovnavanyExpStav) == 0){
+                return true;
+            }
+        }
         return false;
     }
 
     private boolean porovnejSOpen(Stav porovnavanyExpStav) {
-//        Stav porovnavanyUzavrenyStav;
-//        for (int j = 0; j < otevreneStavy.size(); j++) {
-//            porovnavanyUzavrenyStav = otevreneStavy.get(j);
-//            if (porovnavanyExpStav.porovnejStavy(porovnavanyUzavrenyStav) == 0) {
-//                return true;
-//            }
-//        }
+        Iterator<Stav> iterator = otevreneStavy.iterator();
+        while (iterator.hasNext()) {
+            Stav stav = iterator.next();
+            if(stav.porovnejStavy(porovnavanyExpStav) == 0){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -138,11 +147,8 @@ public class Algortimus implements Runnable{
         return aktualniStav;
     }
     
-    public synchronized  void zastav() throws InterruptedException{
-        Thread.currentThread().wait();
-    }
+    public synchronized  void zastav(boolean zastav){
+        this.zastav = zastav;
+    }  
     
-    public synchronized  void resume(){
-        Thread.currentThread().notify();
-    }
 }
