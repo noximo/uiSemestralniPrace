@@ -207,42 +207,11 @@ public class StavHry implements Stav<Hra> {
     }
 
     public boolean isCheckPoint() {
-        /*if (hraciPlocha.equals(checkpoint.vratCheckpoint(uroven))) {
-            if(uroven == 100)  povolJednoducheTahy = true;
+        if (hraciPlocha.equals(checkpoint.vratCheckpoint(uroven))) {
+            if(uroven == 104)  povolJednoducheTahy = true;
             return true;
         }
-        else return false;*/
-
-        if (checkpoint.vratCheckpoint(6).equals(hraciPlocha)) {
-            return true;
-        }
-        else if (checkpoint.vratCheckpoint(20).equals(hraciPlocha)) {
-            return true;
-        }else if (checkpoint.vratCheckpoint(32).equals(hraciPlocha)) {
-            return true;
-        }else if (checkpoint.vratCheckpoint(48).equals(hraciPlocha)) {
-            return true;
-        }
-        else if (checkpoint.vratCheckpoint(58).equals(hraciPlocha)) {
-            return true;
-        } //66
-        else if (checkpoint.vratCheckpoint(66).equals(hraciPlocha)) {
-        //else if (hraciPlocha.equals(checkpoint.vratCheckpoint(uroven))) {
-            return true;
-        }
-        else if (checkpoint.vratCheckpoint(88).equals(hraciPlocha)) {
-            return true;
-        }
-        else if (checkpoint.vratCheckpoint(100).equals(hraciPlocha)) {
-            this.povolJednoducheTahy = true;
-            return true;
-        }
-        else if (checkpoint.vratCheckpoint(107).equals(hraciPlocha)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        else return false;
     }
     
     @Override
