@@ -50,6 +50,7 @@ public class AlgoritmusJFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextFieldCh = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jButtonDalsi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +89,13 @@ public class AlgoritmusJFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Počet v otevřených");
 
+        jButtonDalsi.setText("Dalsi stav");
+        jButtonDalsi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDalsiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -103,6 +111,7 @@ public class AlgoritmusJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonDalsi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonSpust, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldUz)
                     .addComponent(jTextFieldOt)
@@ -119,7 +128,9 @@ public class AlgoritmusJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonUkazAkt))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonUkazAkt)
+                            .addComponent(jButtonDalsi)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -168,17 +179,20 @@ public class AlgoritmusJFrame extends javax.swing.JFrame {
     private void jButtonZastavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZastavActionPerformed
             // TODO add your handling code here:
             alg.zastav(true);
-            jTextFieldCh.setText(Integer.toString(alg.getPocetCheckPointu()));
-            jTextFieldOt.setText(Integer.toString(alg.getPocetOtevrenych()));
-            jTextFieldUz.setText(Integer.toString(alg.getPocetUzavrenych()));
-            panelHra1.nastavPanelZeHry((Hra)alg.getAktualniStav().getValue());
-        
+            nastavHodnoty();
     }//GEN-LAST:event_jButtonZastavActionPerformed
 
     private void jButtonSpustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSpustActionPerformed
         // TODO add your handling code here:
         alg.zastav(false);
+        alg.setDebug(false);
     }//GEN-LAST:event_jButtonSpustActionPerformed
+
+    private void jButtonDalsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDalsiActionPerformed
+        // TODO add your handling code here:
+        alg.setDebug(true);
+        nastavHodnoty();
+    }//GEN-LAST:event_jButtonDalsiActionPerformed
 
     public Algortimus getAlg() {
         return alg;
@@ -187,10 +201,18 @@ public class AlgoritmusJFrame extends javax.swing.JFrame {
     public void setAlg(Algortimus alg) {
         this.alg = alg;
     }
+
+    private void nastavHodnoty(){
+            jTextFieldCh.setText(Integer.toString(alg.getPocetCheckPointu()));
+            jTextFieldOt.setText(Integer.toString(alg.getPocetOtevrenych()));
+            jTextFieldUz.setText(Integer.toString(alg.getPocetUzavrenych()));
+            panelHra1.nastavPanelZeHry((Hra)alg.getAktualniStav().getValue());
+    }
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonDalsi;
     private javax.swing.JButton jButtonSpust;
     private javax.swing.JButton jButtonUkazAkt;
     private javax.swing.JButton jButtonZastav;
