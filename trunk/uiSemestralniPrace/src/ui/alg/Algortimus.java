@@ -28,14 +28,16 @@ public class Algortimus implements Runnable{
     int pocetUzavrenychStavu = 0;
     int pocetOtevrenychStavu = 0;
     int pocetCheckPointu = 0;
-    boolean zastav = false;
-    
+    boolean zastav;
+    boolean debug;
+
     private Stav aktualniStav = null;
     
     public Algortimus() {
 //        otevreneStavy = new ArrayList<Stav>();
 //        uzavreneStavy = new ArrayList<Stav>();        
-
+        zastav = false;
+        debug = false;
         c = new Comparator<Stav>() {
 
             public int compare(Stav o1, Stav o2) {
@@ -66,6 +68,10 @@ public class Algortimus implements Runnable{
         
         while (!otevreneStavy.isEmpty()) {
             while (zastav) {
+                if(debug){
+                    debug = false;
+                    break;
+                }
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
@@ -150,6 +156,13 @@ public class Algortimus implements Runnable{
     
     public synchronized  void zastav(boolean zastav){
         this.zastav = zastav;
-    }  
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+        this.zastav = true;
+    }
+
+
     
 }

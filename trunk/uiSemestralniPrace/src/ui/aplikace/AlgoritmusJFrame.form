@@ -84,6 +84,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jButtonDalsi" max="32767" attributes="1"/>
                       <Component id="jButtonSpust" alignment="0" max="32767" attributes="1"/>
                       <Component id="jTextFieldUz" alignment="0" max="32767" attributes="1"/>
                       <Component id="jTextFieldOt" alignment="0" max="32767" attributes="1"/>
@@ -104,7 +105,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="1">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonUkazAkt" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButtonUkazAkt" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonDalsi" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
@@ -183,6 +187,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Po&#x10d;et v otev&#x159;en&#xfd;ch"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonDalsi">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Dalsi stav"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDalsiActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
