@@ -208,6 +208,7 @@ public class StavHry implements Stav<Hra> {
 
     public boolean isCheckPoint() {
         if (hraciPlocha.equals(checkpoint.vratCheckpoint(uroven))) {
+            if(uroven == 6)  povolJednoducheTahy = false;
             if(uroven == 104)  povolJednoducheTahy = true;
             return true;
         }
