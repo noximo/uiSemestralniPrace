@@ -263,9 +263,11 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (iteratorStav != null) {
             if (iteratorStav.hasNext()) {
-                panelHraKroky.nastavPanelZeHry((Hra) iteratorStav.next().getValue());
-                int pocet = Integer.parseInt(jTextFieldAktKrok.getText());
-                jTextFieldAktKrok.setText(Integer.toString(pocet+1));
+                StavHry stav = (StavHry) iteratorStav.next();
+                Hra value = (Hra) stav.getValue();
+                panelHraKroky.nastavPanelZeHry(value);
+                //int pocet = Integer.parseInt(jTextFieldAktKrok.getText());
+                jTextFieldAktKrok.setText(Integer.toString(stav.getUroven()));
             } else {
                 jButtonDalsiKrok.setEnabled(false);
             }
